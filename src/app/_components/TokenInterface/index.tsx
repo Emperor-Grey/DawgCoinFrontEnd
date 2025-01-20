@@ -1,19 +1,67 @@
 "use client";
 
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAccount } from "wagmi";
 import TokenHeader from "./TokenHeader";
 import { TokenTabs } from "./TokenTabs";
 import { AccountStatus } from "./AccountStatus";
+import Dogegif from "@/assets/dog-unscreen.gif";
 
-export default function TokenInterface() {
+const TokenInterface = () => {
   const account = useAccount();
+  const [showDogs, setShowDogs] = useState(false);
+
+  // Modified TokenHeader to handle dog visibility
+  const ModifiedTokenHeader = () => {
+    const originalHeader = <TokenHeader />;
+
+    // Clone the original header and inject our handler
+    return React.cloneElement(originalHeader, {
+      onConnectClick: () => setShowDogs(true),
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <TokenHeader />
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8 relative">
+      {/* Top Left Dog */}
+      {showDogs && (
+        <img
+          className="absolute top-10 left-10 size-40"
+          src={Dogegif.src}
+          alt="gif"
+        />
+      )}
 
+      {/* Top Right Dog */}
+      {showDogs && (
+        <img
+          className="absolute top-10 right-10 size-40"
+          src={Dogegif.src}
+          alt="gif"
+        />
+      )}
+
+      {/* Bottom Left Dog */}
+      {showDogs && (
+        <img
+          className="absolute bottom-10 left-10 size-40"
+          src={Dogegif.src}
+          alt="gif"
+        />
+      )}
+
+      {/* Bottom Right Dog */}
+      {showDogs && (
+        <img
+          className="absolute bottom-10 right-10 size-40"
+          src={Dogegif.src}
+          alt="gif"
+        />
+      )}
+
+      <div className="max-w-4xl mx-auto space-y-6">
+        <ModifiedTokenHeader />
         {account.status === "connected" ? (
           <TokenTabs />
         ) : (
@@ -25,9 +73,10 @@ export default function TokenInterface() {
             </CardContent>
           </Card>
         )}
-
         <AccountStatus />
       </div>
     </div>
   );
-}
+};
+
+export default TokenInterface;

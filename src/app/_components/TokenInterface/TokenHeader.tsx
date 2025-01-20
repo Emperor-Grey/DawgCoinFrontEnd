@@ -9,7 +9,11 @@ import { useTokenContract } from "@/hooks/useTokenContract";
 import { Loader2, Power, Wallet2 } from "lucide-react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 
-export default function TokenHeader() {
+export default function TokenHeader({
+  onConnectClick,
+}: {
+  onConnectClick?: () => void;
+}) {
   const account = useAccount();
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
@@ -19,6 +23,11 @@ export default function TokenHeader() {
   const [symbol, setSymbol] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | undefined>(undefined);
+
+  const handleConnect = () => {
+    connect({ connector: connectors[0] });
+    onConnectClick?.();
+  };
 
   useEffect(() => {
     if (account.address) {
@@ -79,7 +88,7 @@ export default function TokenHeader() {
         ) : (
           <Button
             variant="outline"
-            onClick={() => connect({ connector: connectors[0] })}
+            onClick={handleConnect}
             className="flex items-center gap-2"
           >
             <Wallet2 size={16} />

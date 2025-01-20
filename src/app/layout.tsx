@@ -22,7 +22,7 @@ export default function RootLayout(props: { children: ReactNode }) {
   );
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} relative min-h-screen`}>
         <Providers initialState={initialState}>{props.children}</Providers>
       </body>
     </html>
