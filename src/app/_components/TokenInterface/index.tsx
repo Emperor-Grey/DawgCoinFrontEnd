@@ -54,7 +54,7 @@ const TokenInterface = () => {
 
       {/* Bottom Right Dog */}
       {showDogs && (
-        <img
+        <Image
           className="absolute bottom-10 right-10 size-40"
           src={Dogegif.src}
           alt="gif"

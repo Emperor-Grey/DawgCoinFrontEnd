@@ -7,7 +7,6 @@ import { MintTab } from "../tabs/Mint";
 import { TransferTab } from "../tabs/TransferTab";
 
 // for this one thing to work i had to go through the docs too much time waste (not really)
-
 export function TokenTabs() {
   return (
     <Tabs defaultValue="transfer" className="space-y-4">
