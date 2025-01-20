@@ -7,6 +7,7 @@ import TokenHeader from "./TokenHeader";
 import { TokenTabs } from "./TokenTabs";
 import { AccountStatus } from "./AccountStatus";
 import Dogegif from "@/assets/dog-unscreen.gif";
+import Image from "next/image";
 
 const TokenInterface = () => {
   const account = useAccount();
@@ -26,7 +27,7 @@ const TokenInterface = () => {
     <div className="min-h-screen bg-gray-50 p-4 md:p-8 relative">
       {/* Top Left Dog */}
       {showDogs && (
-        <img
+        <Image
           className="absolute top-10 left-10 size-40"
           src={Dogegif.src}
           alt="gif"
@@ -35,7 +36,7 @@ const TokenInterface = () => {
 
       {/* Top Right Dog */}
       {showDogs && (
-        <img
+        <Image
           className="absolute top-10 right-10 size-40"
           src={Dogegif.src}
           alt="gif"
@@ -44,7 +45,7 @@ const TokenInterface = () => {
 
       {/* Bottom Left Dog */}
       {showDogs && (
-        <img
+        <Image
           className="absolute bottom-10 left-10 size-40"
           src={Dogegif.src}
           alt="gif"
