@@ -210,6 +210,8 @@ export function useTokenContract() {
   // };
 
   const mint = async (receiver: string, amount: bigint) => {
+    if (!account.address) throw new Error("No account connected");
+
     const { request } = await client.simulateContract({
       account: account.address,
       address: CONTRACT_ADDRESS,
@@ -217,8 +219,9 @@ export function useTokenContract() {
       functionName: "mint",
       args: [receiver, amount],
     });
-    await walletClient.writeContract(request);
-    return request;
+
+    const hash = await walletClient.writeContract(request);
+    return hash;
   };
 
   return {
