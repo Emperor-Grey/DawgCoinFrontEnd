@@ -1,8 +1,7 @@
 import { CONTRACT_ADDRESS } from "@/contants/contract";
 import ABI from "../abi.json";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
-import { client, walletClient } from "../viem";
-import { walletActions } from "viem";
+import { client, getWalletClient } from "../viem";
 
 // ALL THE COMMENTED CODE IS LIKE WITH WAGMI AND NON COMMENTED CODE IS WITH VIEM
 
@@ -139,6 +138,9 @@ export function useTokenContract() {
   // };
 
   const transfer = async (recipient: string, amount: bigint) => {
+    const walletClient = getWalletClient();
+    if (!walletClient) throw new Error("No wallet client available");
+
     const { request } = await client.simulateContract({
       account: account.address,
       address: CONTRACT_ADDRESS,
@@ -160,6 +162,9 @@ export function useTokenContract() {
   // };
 
   const approve = async (spender: string, amount: bigint) => {
+    const walletClient = getWalletClient();
+    if (!walletClient) throw new Error("No wallet client available");
+
     const { request } = await client.simulateContract({
       account: account.address,
       address: CONTRACT_ADDRESS,
@@ -189,6 +194,9 @@ export function useTokenContract() {
     recipient: string,
     amount: bigint
   ) => {
+    const walletClient = getWalletClient();
+    if (!walletClient) throw new Error("No wallet client available");
+
     const { request } = await client.simulateContract({
       account: account.address,
       address: CONTRACT_ADDRESS,
@@ -211,6 +219,9 @@ export function useTokenContract() {
 
   const mint = async (receiver: string, amount: bigint) => {
     if (!account.address) throw new Error("No account connected");
+
+    const walletClient = getWalletClient();
+    if (!walletClient) throw new Error("No wallet client available");
 
     const { request } = await client.simulateContract({
       account: account.address,
